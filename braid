@@ -1,0 +1,113 @@
+#!/usr/bin/env python2
+
+import sys, os, getopt, glob, codecs, fnmatch
+scriptPath = os.path.realpath(os.path.dirname(sys.argv[0]))
+sys.path.append(scriptPath + os.sep + 'lib')
+from tiddlywiki import TiddlyWiki
+
+
+def usage():
+   print 'usage: braid [-a author] [-t target] [-m mergefile] [-o outputfile] [-l file list] [-r recurse dir] [-f filetype] source1 [source2..]'
+
+
+def main (argv):
+
+   # defaults
+
+   author = 'braid'
+   target = 'sugarcube'
+   merge = ''
+   output = ''
+   fileList = ''
+   recursePath = ''
+   twineFiletype = '.tw'
+
+   # read command line switches
+
+   try:
+      opts, args = getopt.getopt(argv, 'a:m:t:o:l:r:f:', ['author=', 'merge=', \
+         'target=', 'output=', 'list=', 'recursive=', 'filetype='])
+   except getopt.GetoptError:
+      usage()
+      sys.exit(2)
+
+   for opt, arg in opts:
+      if (opt in ('-a', '--author')):
+         author = arg
+      elif (opt in ('-m', '--merge')):
+         merge = arg
+      elif (opt in ('-t', '--target')):
+         target = arg
+      elif (opt in ('-o', '--output')):
+         output = arg
+      elif (opt in ('-l', '--list')):
+         fileList = arg
+      elif (opt in ('-r', '--recursive')):
+         recursePath = arg
+      elif (opt in ('-f', '--filetype')):
+         twineFiletype = arg
+
+   # construct a TW object
+
+   tw = TiddlyWiki(author)
+
+   # read in a file to be merged
+
+   if merge != '':
+      try:
+         mergeFile = codecs.open(merge, 'r', 'utf-8-sig', 'strict')
+         fileString = mergeFile.read()
+      except UnicodeDecodeError:
+         try:
+            mergeFile = codecs.open(merge, 'r', 'utf16', 'strict')
+            fileString = mergeFile.read()
+         except:
+            mergeFile = open(merge, 'rb')
+            fileString = source.read()
+      mergeFile.close()
+      tw.addHtml(fileString)
+
+   # read source files		
+
+   sources = []
+
+   # Read File List, if present
+   if fileList != '':
+      try:
+         fileListFile = codecs.open(fileList, 'r', 'utf-8-sig', 'strict')
+      except UnicodeDecodeError:
+         try:
+            fileListFile = codecs.open(fileList, 'r', 'utf16', 'strict')
+         except:
+            fileListFile = open(fileList, 'rb')
+      for fileName in fileListFile:
+         for file in glob.glob(fileName.strip()):
+            sources.append(file)
+      fileListFile.close()
+
+   # Read files from command line
+   for arg in args:
+      for file in glob.glob(arg):
+         sources.append(file)
+
+   # Recurse through directory, if specified
+   for root, dirnames, filenames in os.walk(recursePath):
+      for filename in fnmatch.filter(filenames, '*' + twineFiletype):
+         sources.append(os.path.join(root, filename))
+
+   if len(sources) == 0:
+      print 'braid: no source files specified\n'
+      sys.exit(2)	
+
+   for source in sources:
+      tw.addTweeFromFilename(source)
+
+   if output != '':
+      outputFile = open(output, 'w')
+      outputFile.write(tw.toHtml(scriptPath, target).encode('utf-8'))
+      outputFile.close()
+   else:
+      print tw.toHtml(scriptPath, target)
+
+if __name__ == '__main__':
+   main(sys.argv[1:])
