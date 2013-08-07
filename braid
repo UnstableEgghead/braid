@@ -7,7 +7,7 @@ from tiddlywiki import TiddlyWiki
 
 
 def usage():
-   print 'usage: braid [-a author] [-t target] [-m mergefile] [-o outputfile] [-l file list] [-r recurse dir] [-f filetype] source1 [source2..]'
+   print 'usage: braid [-a author] [-t target] [-m mergefile] [-o outputfile] [-l file list] [-r recurse dir] [-f filetype] [-p proofcopy] source1 [source2..]'
 
 
 def main (argv):
@@ -18,6 +18,7 @@ def main (argv):
    target = 'sugarcube'
    merge = ''
    output = ''
+   rtfOutput = ''
    fileList = ''
    recursePath = ''
    twineFiletype = '.tw'
@@ -25,8 +26,8 @@ def main (argv):
    # read command line switches
 
    try:
-      opts, args = getopt.getopt(argv, 'a:m:t:o:l:r:f:', ['author=', 'merge=', \
-         'target=', 'output=', 'list=', 'recursive=', 'filetype='])
+      opts, args = getopt.getopt(argv, 'a:m:t:o:l:r:f:p:', ['author=', 'merge=', \
+         'target=', 'output=', 'list=', 'recursive=', 'filetype=', 'proofcopy='])
    except getopt.GetoptError:
       usage()
       sys.exit(2)
@@ -46,6 +47,8 @@ def main (argv):
          recursePath = arg
       elif (opt in ('-f', '--filetype')):
          twineFiletype = arg
+      elif (opt in ('-p', '--proofcopy')):
+         rtfOutput = arg
 
    # construct a TW object
 
@@ -101,6 +104,11 @@ def main (argv):
 
    for source in sources:
       tw.addTweeFromFilename(source)
+
+   if rtfOutput != '':
+      rtfOutputFile = open(rtfOutput, 'w')
+      rtfOutputFile.write(tw.toRtf().encode('utf-8'))
+      rtfOutputFile.close()
 
    if output != '':
       outputFile = open(output, 'w')

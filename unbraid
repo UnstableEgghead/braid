@@ -1,0 +1,82 @@
+#!/usr/bin/env python2
+
+import sys, os, getopt, glob, codecs, fnmatch, ConfigParser
+scriptPath = os.path.realpath(os.path.dirname(sys.argv[0]))
+sys.path.append(scriptPath + os.sep + 'lib')
+from tiddlywiki import TiddlyWiki
+
+
+def usage():
+   print 'usage: braid [-a author] [-o outputfile] [-r rtfproof] source1 [source2..]'
+
+
+def main (argv):
+
+   # defaults
+
+   author = 'braid'
+   output = ''
+   rtfOutput = ''
+
+   # read command line switches
+
+   try:
+      opts, args = getopt.getopt(argv, 'a:o:r:', ['author=', 'output=','rtf='])
+   except getopt.GetoptError:
+      usage()
+      sys.exit(2)
+
+   for opt, arg in opts:
+      if (opt in ('-a', '--author')):
+         author = arg
+      elif (opt in ('-o', '--output')):
+         output = arg
+      elif (opt in ('-r', '--rtf')):
+         rtfOutput = arg
+
+   # construct a TW object
+
+   tw = TiddlyWiki(author)
+
+   # read source files		
+
+   sources = []
+
+   # Read files from command line
+   for arg in args:
+      for file in glob.glob(arg):
+         sources.append(file)
+
+   if len(sources) == 0:
+      print 'unbraid: no html files specified\n'
+      sys.exit(2)	
+
+   for source in sources:
+      try:
+         htmlFile = codecs.open(source, 'r', 'utf-8-sig', 'strict')
+         htmlString = htmlFile.read()
+      except UnicodeDecodeError:
+         try:
+            htmlFile = codecs.open(source, 'r', 'utf16', 'strict')
+            htmlString = htmlFile.read()
+         except:
+            htmlFile = open(source, 'rb')
+            htmlString = htmlFile.read()
+      htmlFile.close()
+      tw.addHtml(htmlString)
+
+   if rtfOutput != '':
+      rtfOutputFile = open(rtfOutput, 'w')
+      rtfOutputFile.write(tw.toRtf().encode('utf-8'))
+      rtfOutputFile.close()
+
+   if output != '':
+      outputFile = open(output, 'w')
+      outputFile.write(tw.toTwee().encode('utf-8'))
+      outputFile.close()
+   else:
+      print tw.toTwee()
+   
+
+if __name__ == '__main__':
+   main(sys.argv[1:])
