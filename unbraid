@@ -7,7 +7,7 @@ from tiddlywiki import TiddlyWiki
 
 
 def usage():
-   print 'usage: braid [-a author] [-o outputfile] [-r rtfproof] source1 [source2..]'
+   print 'usage: unbraid [-a author] [-o outputfile] [-r rtfproof] [-s splitdir] [-t filetype] source1 [source2..]'
 
 
 def main (argv):
@@ -17,11 +17,14 @@ def main (argv):
    author = 'braid'
    output = ''
    rtfOutput = ''
+   splitDir = ''
+   twineFiletype = '.tw'
+   keepcharacters = (' ', '_', '-', '(', ')')
 
    # read command line switches
 
    try:
-      opts, args = getopt.getopt(argv, 'a:o:r:', ['author=', 'output=','rtf='])
+      opts, args = getopt.getopt(argv, 'a:o:r:s:f:', ['author=', 'output=','rtf=', 'splitdir=', 'filetype='])
    except getopt.GetoptError:
       usage()
       sys.exit(2)
@@ -33,6 +36,10 @@ def main (argv):
          output = arg
       elif (opt in ('-r', '--rtf')):
          rtfOutput = arg
+      elif (opt in ('-s', '--splitdir')):
+         splitDir = arg
+      elif (opt in ('-f', '--filetype')):
+         twineFiletype = arg
 
    # construct a TW object
 
@@ -70,7 +77,14 @@ def main (argv):
       rtfOutputFile.write(tw.toRtf().encode('utf-8'))
       rtfOutputFile.close()
 
-   if output != '':
+   if splitDir != '':
+      tiddlers = tw.tiddlers.keys()
+      for tiddler in tiddlers:
+         tiddlerFilename = "".join(char for char in tiddler if char.isalnum() or char in keepcharacters).rstrip()
+         tiddlerOutFile = open(os.path.normpath(os.path.join(splitDir, tiddlerFilename + twineFiletype)), 'a')
+         tiddlerOutFile.write(tw.tiddlers[tiddler].toTwee().encode('utf-8'))
+         tiddlerOutFile.close()
+   elif output != '':
       outputFile = open(output, 'w')
       outputFile.write(tw.toTwee().encode('utf-8'))
       outputFile.close()
