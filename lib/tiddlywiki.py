@@ -34,7 +34,29 @@ class TiddlyWiki:
 				return self.tiddlers[name].text
 				
 		return default
+
+	def getBroken (self):
+		"""Gets broken and orphaned passages."""
 		
+                orphans = self.tiddlers.keys()
+                orphanOmit = [ "Start", "ShareMenu", "StoryAuthor", "StoryBanner", 
+                      "StoryInit", "StoryCaption", "StoryMenu", "PassageReady", 
+                      "StorySubtitle", "StoryTitle"]
+                for omit in orphanOmit:
+                        if orphans.count(omit): orphans.remove(omit)
+                broken = {}
+                for passage in self.tiddlers.keys():
+                        links = []
+                        for link in self.tiddlers[passage].links():
+                                if orphans.count(link): orphans.remove(link)
+                                if not link in self.tiddlers: links.append(link)
+                        if links: broken[passage] = links
+                for passage in orphans:
+                        if ("script" in self.tiddlers[passage].tags) or \
+                           ("stylesheet" in self.tiddlers[passage].tags) or \
+                           ("widget" in self.tiddlers[passage].tags): orphans.remove(passage)
+                return broken, orphans
+
 	def toTwee (self, order = None):
 		"""Returns Twee source code for this TiddlyWiki."""
 		if not order: order = self.tiddlers.keys()		
@@ -308,7 +330,7 @@ class Tiddler:
 		parameter.
 		"""
 		
-		if ('script' in self.tags) or ('stylesheet' in self.tags):
+		if ('script' in self.tags) or ('stylesheet' in self.tags) or ('widget' in self.tags):
 			return []
 
 		# regular hyperlinks
@@ -331,11 +353,11 @@ class Tiddler:
 
 		# <<display ''>>
 		
-		displays = re.findall(r'\<\<display\s+[\'"](.+?)[\'"]\s?\>\>', self.text, re.IGNORECASE)
-		
+		displays = re.findall(r'\<\<display\s+[\'"](.+?)[\'"]\s*\w*\s*\>\>', self.text, re.IGNORECASE)
+
 		# <<choice ''>>
 		
-		choices = re.findall(r'\<\<choice\s+[\'"](.+?)[\'"]\s?\>\>', self.text, re.IGNORECASE)
+		choices = re.findall(r'\<\<choice\s+[\'"](.+?)[\'"]\s*\>\>', self.text, re.IGNORECASE)
 
 		# <<actions ''>>
 		
@@ -343,10 +365,33 @@ class Tiddler:
 		actionBlocks = re.findall(r'\<\<actions\s+(.*?)\s?\>\>', self.text, re.IGNORECASE)
 		for block in actionBlocks:
 			actions = actions + re.findall(r'[\'"](.*?)[\'"]', block)
+
+		# <<back ''>>
 		
+		backs = re.findall(r'\<\<back\s+[\'"](.+?)[\'"]\s*\>\>', self.text, re.IGNORECASE)
+
+		# <<return ''>>
+		
+		returns = re.findall(r'\<\<return\s+[\'"](.+?)[\'"]\s*\>\>', self.text, re.IGNORECASE)
+
+		# <<binds ''>>
+		
+		binds = re.findall(r'\<\<bind\s+[\'"].+?[\'"]\s+[\'"](.+?)[\'"]\s*\>\>', self.text, re.IGNORECASE + re.DOTALL)
+
+		# <<link ''>>
+		
+		linkmacros = list()
+                for block in re.findall(r'\<\<link\s+(.+?)\s*\>\>', self.text, re.IGNORECASE + re.DOTALL):
+                        linkBlock = re.findall(r'[\'"](.+?)[\'"]', block, re.DOTALL) 
+                        linkmacros.append(linkBlock[len(linkBlock) - 1])
+
+		# [img['']['']]
+		
+		imglinks = re.findall(r'\[[<>]?img\[.*\]\[(.+?)\]\]', self.text, re.IGNORECASE + re.DOTALL)
+
 		# remove duplicates by converting to a set
 		
-		return list(set(links + displays + choices + actions))
+		return list(set(links + displays + choices + actions + backs + returns + binds + linkmacros + imglinks))
 
 #
 # Helper functions

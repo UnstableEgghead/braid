@@ -7,7 +7,7 @@ from tiddlywiki import TiddlyWiki
 
 
 def usage():
-   print 'usage: braid [-a author] [-t target] [-m mergefile] [-o outputfile] [-l file list] [-r recurse dir] [-f filetype] [-p proofcopy] source1 [source2..]'
+   print 'usage: braid [-a author] [-t target] [-m mergefile] [-o outputfile] [-l file list] [-r recurse dir] [-f filetype] [-p proofcopy] [-b brokenlink] source1 [source2..]'
 
 
 def main (argv):
@@ -22,12 +22,13 @@ def main (argv):
    fileList = ''
    recursePath = ''
    twineFiletype = '.tw'
+   brokenLink = ''
 
    # read command line switches
 
    try:
-      opts, args = getopt.getopt(argv, 'a:m:t:o:l:r:f:p:', ['author=', 'merge=', \
-         'target=', 'output=', 'list=', 'recursive=', 'filetype=', 'proofcopy='])
+      opts, args = getopt.getopt(argv, 'a:m:t:o:l:r:f:p:b:', ['author=', 'merge=', \
+         'target=', 'output=', 'list=', 'recursive=', 'filetype=', 'proofcopy=', 'brokenlink='])
    except getopt.GetoptError:
       usage()
       sys.exit(2)
@@ -49,6 +50,8 @@ def main (argv):
          twineFiletype = arg
       elif (opt in ('-p', '--proofcopy')):
          rtfOutput = arg
+      elif (opt in ('-b', '--brokenlink')):
+         brokenLink = arg
 
    # construct a TW object
 
@@ -101,21 +104,37 @@ def main (argv):
    if len(sources) == 0:
       print 'braid: no source files specified\n'
       sys.exit(2)	
-
+   
+   # Load Twee Files
    for source in sources:
       tw.addTweeFromFilename(source)
 
+   # Output RTF proofing file if requested
    if rtfOutput != '':
       rtfOutputFile = open(rtfOutput, 'w')
       rtfOutputFile.write(tw.toRtf().encode('utf-8'))
       rtfOutputFile.close()
 
+   # Either Output to a file if requested, or to standard output
    if output != '':
       outputFile = open(output, 'w')
       outputFile.write(tw.toHtml(scriptPath, target).encode('utf-8'))
       outputFile.close()
    else:
       print tw.toHtml(scriptPath, target)
+
+   # Outputs a broken link/orphan list if requested
+   if brokenLink != '':
+      broken, orphans = tw.getBroken()
+      brokenLinkFile = open(brokenLink, 'w')
+      brokenLinkFile.write("Broken Links:\n")
+      for passage in broken:
+         brokenLinkFile.write(" - " + passage + "\n")
+         for link in broken[passage]:
+            brokenLinkFile.write("    + " + link + "\n")
+      brokenLinkFile.write("Orphaned Passages:\n")
+      for passage in orphans:
+         brokenLinkFile.write(" - " + passage + "\n")
 
 if __name__ == '__main__':
    main(sys.argv[1:])
