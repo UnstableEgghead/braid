@@ -1,0 +1,989 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>SugarCube documentation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: 29d1c5bc36da364ad5aa86946d420b7bbc54a253 */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 4px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 14px;
+  font-family: Consolas, "DejaVu Sans Mono", "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  /*
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+  */
+  padding: 0 30px;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 1px solid #ccc;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<p><span id="top"></span></p>
+<h1>SugarCube</h1>
+<p>A header for <a href="http://gimcrackd.com/etc/src/" title="http://gimcrackd.com/etc/src/">Twine/Twee</a>, based on <a href="http://tiddlywiki.com/" title="http://tiddlywiki.com/">TiddlyWiki</a>.</p>
+<p>This documentation is a reference for SugarCube, it assumes at least a passing knowledge of Twine/Twee headers.  If you lack such knowledge, or simply for more information, the <a href="http://gimcrackd.com/etc/doc/" title="http://gimcrackd.com/etc/doc/">Twine/Twee reference documentation</a> and this <a href="http://tiddlywiki.tiddlyspace.com/TiddlyWiki%20Markup" title="http://tiddlywiki.tiddlyspace.com/TiddlyWiki Markup">TiddlyWiki Markup documentation</a> may be useful.</p>
+<p>Downloads and documentation can be found at <a href="http://www.motoslave.net/sugarcube/" title="http://www.motoslave.net/sugarcube/">SugarCube's website</a>.</p>
+<hr />
+<p><strong>Sections:</strong></p>
+<ul>
+<li><a href="#features" title="go to: Features">Features</a></li>
+<li><a href="#requirements" title="go to: Requirements">Requirements</a></li>
+<li><a href="#reserved-names" title="go to: Reserved &amp; Special Names">Reserved &amp; Special Names</a></li>
+<li><a href="#macros" title="go to: Macros">Macros</a></li>
+<li><a href="#functions" title="go to: Utility Functions">Utility Functions</a></li>
+<li><a href="#config" title="go to: Configuration Object">Configuration Object</a></li>
+<li><a href="#html" title="go to: HTML Layout">HTML Layout</a></li>
+<li><a href="#css" title="go to: CSS Notes">CSS Notes</a></li>
+<li><a href="#incompatibilities" title="go to: Incompatibilities With Existing Code">Incompatibilities With Existing Code</a></li>
+</ul>
+<p><span id="features"></span></p>
+<h2>Features</h2>
+<ul>
+<li>Semantic HTML5 (for the most part, anyway).</li>
+<li>
+Three modes of operation:
+<ul>
+<li>
+<strong>Window History mode:</strong> The default mode.
+<ul>
+<li>Works with the browser's history, so no more ever growing hash tag (fragment ID).</li>
+<li>Fully persistent state within a story, even over page reloads.</li>
+</ul>
+</li>
+<li><strong>Session History mode:</strong> A special version of the Window History mode for Firefox.</li>
+<li><strong>Hash Tag mode:</strong> The traditional Twine/Twee header mode, which is included largely for compatibility, but authors can choose to force its use over the Window/Session History modes if they desire.</li>
+</ul>
+</li>
+<li>The ability to easily save your progress, at any point, and revisit it at any time.</li>
+<li>A completely author configurable Share menu, via the <a href="#reserved-names-passages" title="see: ShareMenu passage">ShareMenu passage</a>.</li>
+<li>Twine/Twee tags as classes, on the active passage's container element and the page's <code>&lt;body&gt;</code> element.</li>
+<li><a href="#macros-widget" title="see: &lt;&lt;widget&gt;&gt;">Widget macros</a>.  Widgets allow you to create macros by using the standard macros and wiki text that you use normally within your story, so all Twine/Twee users can now create simple macros.</li>
+<li>Supports the backslash as a line continuation character.  This is mostly useful for controlling whitespace when you want to wrap lines for readability, but not generate extra whitespace upon display, and <a href="#macros-silently" title="see: &lt;&lt;silently&gt;&gt;"><code>&lt;&lt;silently&gt;&gt;</code></a> isn't an option because you need to generate output.  (similar to: <a href="http://www.glorioustrainwrecks.com/node/5400" title="http://www.glorioustrainwrecks.com/node/5400">escape line breaks with backslashes</a>)</li>
+</ul>
+<p><span id="requirements"></span></p>
+<h2>Requirements</h2>
+<p>SugarCube's sole requirement is a modern web browser, and by <em>modern</em> I mean one released within the last several years (you do not need the absolute latest and greatest shiny).</p>
+<p><span id="reserved-names"></span></p>
+<h2>Reserved &amp; Special Names</h2>
+<p><span id="reserved-names-passages"></span></p>
+<h3>Passage Names</h3>
+<p>The <code>Start</code> passage is the only <em>required</em> passage, all other special named passages are optional.  However, it is recommended that you also create, at least, a <code>StoryTitle</code> passage as well.</p>
+<ul>
+<li><strong><code>ShareMenu</code>:</strong> Used to populate the share menu (element ID: shareMenu).</li>
+<li><strong><code>Start</code>:</strong> Entry point for the story, the first passage displayed.</li>
+<li><strong><code>StoryAuthor</code>:</strong> Sets the authorial byline (element ID: storyAuthor).</li>
+<li><strong><code>StoryBanner</code>:</strong> Set the story's banner (element ID: storyBanner).</li>
+<li><strong><code>StoryCaption</code>:</strong> Sets the story's caption (element ID: storyCaption).</li>
+<li><strong><code>StoryInit</code>:</strong> Used for pre-story-initialization tasks, like variable initialization (happens between early macro initialization and story initialization).</li>
+<li><strong><code>StoryMenu</code>:</strong> Used to populate the story menu (element ID: storyMenu).</li>
+<li><strong><code>PassageReady</code>:</strong> Used for post-story-initialization tasks, like redoing dynamic changes to the page (happens after everything else, just before passage rendering).</li>
+<li><strong><code>StorySubtitle</code>:</strong> Sets the story's subtitle (element ID: storySubtitle).</li>
+<li><strong><code>StoryTitle</code>:</strong> Sets the story's title (element ID: storyTitle).</li>
+</ul>
+<p><span id="reserved-names-tags"></span></p>
+<h3>Tag Names</h3>
+<ul>
+<li><strong><code>bookmark</code>:</strong> Registers the passage into the rewind menu.</li>
+<li><strong><code>script</code>:</strong> Registers the passage as JavaScript code, which is executed at startup.</li>
+<li><strong><code>stylesheet</code>:</strong> Registers the passage as a CSS ruleset, which is loaded at startup.</li>
+<li><strong><code>widget</code>:</strong> Registers the passage as <a href="#macros-widget" title="see: &lt;&lt;widget&gt;&gt;"><code>&lt;&lt;widget&gt;&gt;</code></a> definitions, which are loaded at startup.</li>
+</ul>
+<p><span id="reserved-names-variables"></span></p>
+<h3>Variable Names</h3>
+<ul>
+<li><strong><code>setup</code>:</strong> Author use setup variable.</li>
+</ul>
+<p><span id="macros"></span></p>
+<h2>Macros</h2>
+<p><strong>Note:</strong> Variable substitution occurs automatically, so <em>all macros</em> that take arguments can take $variables as arguments.</p>
+<p><a href="#macros-actions" title="go to: &lt;&lt;actions&gt;&gt;"><code>&lt;&lt;actions&gt;&gt;</code></a>, 
+<a href="#macros-back" title="go to: &lt;&lt;back&gt;&gt;"><code>&lt;&lt;back&gt;&gt;</code></a>, 
+<a href="#macros-bind" title="go to: &lt;&lt;bind&gt;&gt;"><code>&lt;&lt;bind&gt;&gt;</code></a>, 
+<a href="#macros-choice" title="go to: &lt;&lt;choice&gt;&gt;"><code>&lt;&lt;choice&gt;&gt;</code></a>, 
+<a href="#macros-class" title="go to: &lt;&lt;class&gt;&gt;"><code>&lt;&lt;class&gt;&gt;</code></a>, 
+<a href="#macros-classupdate" title="go to: &lt;&lt;classupdate&gt;&gt;"><code>&lt;&lt;classupdate&gt;&gt;</code></a>, 
+<a href="#macros-display" title="go to: &lt;&lt;display&gt;&gt;"><code>&lt;&lt;display&gt;&gt;</code></a>, 
+<a href="#macros-id" title="go to: &lt;&lt;id&gt;&gt;"><code>&lt;&lt;id&gt;&gt;</code></a>, 
+<a href="#macros-if" title="go to: &lt;&lt;if&gt;&gt;"><code>&lt;&lt;if&gt;&gt;</code></a>, 
+<a href="#macros-link" title="go to: &lt;&lt;link&gt;&gt;"><code>&lt;&lt;link&gt;&gt;</code></a>, 
+<a href="#macros-print" title="go to: &lt;&lt;print&gt;&gt;"><code>&lt;&lt;print&gt;&gt;</code></a>, 
+<a href="#macros-remember" title="go to: &lt;&lt;remember&gt;&gt;"><code>&lt;&lt;remember&gt;&gt;</code></a>, 
+<a href="#macros-return" title="go to: &lt;&lt;return&gt;&gt;"><code>&lt;&lt;return&gt;&gt;</code></a>, 
+<a href="#macros-run" title="go to: &lt;&lt;run&gt;&gt;"><code>&lt;&lt;run&gt;&gt;</code></a>, 
+<a href="#macros-runjs" title="go to: &lt;&lt;runjs&gt;&gt;"><code>&lt;&lt;runjs&gt;&gt;</code></a>, 
+<a href="#macros-set" title="go to: &lt;&lt;set&gt;&gt;"><code>&lt;&lt;set&gt;&gt;</code></a>, 
+<a href="#macros-silently" title="go to: &lt;&lt;silently&gt;&gt;"><code>&lt;&lt;silently&gt;&gt;</code></a>, 
+<a href="#macros-unset" title="go to: &lt;&lt;unset&gt;&gt;"><code>&lt;&lt;unset&gt;&gt;</code></a>, 
+<a href="#macros-update" title="go to: &lt;&lt;update&gt;&gt;"><code>&lt;&lt;update&gt;&gt;</code></a>, 
+<a href="#macros-widget" title="go to: &lt;&lt;widget&gt;&gt;"><code>&lt;&lt;widget&gt;&gt;</code></a></p>
+<hr />
+<p><span id="macros-actions"></span></p>
+<h3><code>&lt;&lt;actions passage_list&gt;&gt;</code></h3>
+<blockquote>
+<p>Provides a list of passage links to the reader.  Only really useful when paired with <a href="#macros-display" title="see: &lt;&lt;display&gt;&gt;"><code>&lt;&lt;display&gt;&gt;</code></a>.  See the <a href="http://gimcrackd.com/etc/doc/#code,actions" title="http://gimcrackd.com/etc/doc/#code,actions">Giving the Reader Several Options</a> section of the <a href="http://gimcrackd.com/etc/doc/" title="http://gimcrackd.com/etc/doc/">Twine/Twee reference documentation</a> for more information.</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><strong>passage_list:</strong> A space separated list of passage names, to create links for, and/or passage links to use.</li>
+</ul>
+<p><strong>Usage:</strong></p>
+<pre><code>&lt;&lt;actions &quot;Surrender to Count de Monet&quot; &quot;Fight Count de Monet&quot;&gt;&gt;
+&lt;&lt;actions &quot;Surrender to Count de Monet&quot; [[Fight!|Fight Count de Monet]]&gt;&gt;
+&lt;&lt;actions [[Surrender|Surrender to Count de Monet]] [[Fight!|Fight Count de Monet]]&gt;&gt;
+</code></pre>
+
+</blockquote>
+<hr />
+<p><span id="macros-back"></span></p>
+<h3><code>&lt;&lt;back [# steps]&gt;&gt;</code> <em>or</em> <code>&lt;&lt;back [passage_name]&gt;&gt;</code></h3>
+<blockquote>
+<p>Backs up a certain number of passages.</p>
+<p><strong>Arguments: (steps version)</strong></p>
+<ul>
+<li><strong>#:</strong> The, optional, number of passages to back up.</li>
+<li><strong>steps:</strong> Required keyword, used to specify that you're using the steps version.</li>
+</ul>
+<p><strong>Arguments: (passage version)</strong></p>
+<ul>
+<li><strong>passage_name:</strong> The, optional, name of the passage whose most recent instance should be gone to.</li>
+</ul>
+<p><strong>Usage:</strong></p>
+<pre><code>&lt;&lt;back&gt;&gt;            → Go back one passage
+&lt;&lt;back 3 steps&gt;&gt;    → Go back three passages
+&lt;&lt;back &quot;Go West&quot;&gt;&gt;  → Go back to the most recent instance of the &quot;Go West&quot; passage
+</code></pre>
+
+</blockquote>
+<h3><code>&lt;&lt;back::linktext link_text&gt;&gt;</code> (alternate &quot;linktext&quot; handler)</h3>
+<blockquote>
+<p>Sets the default link text for all subsequent calls to <code>&lt;&lt;back&gt;&gt;</code>.</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><strong>link_text:</strong> The, optional, text of the link.  If omitted, will restore the built-in default link text.</li>
+</ul>
+<p><strong>Usage:</strong></p>
+<pre><code>&lt;&lt;back::linktext &quot;&amp;laquo; Exit, stage left&quot;&gt;&gt;  → Set the default link text
+&lt;&lt;back::linktext&gt;&gt;                             → Restore the built-in default link text
+</code></pre>
+
+</blockquote>
+<hr />
+<p><span id="macros-bind"></span></p>
+<h3><code>&lt;&lt;bind link_text [passage_name]&gt;&gt;</code></h3>
+<blockquote>
+<p>Binds its contents to a link, which silently executes them when clicked, optionally forwarding the user to another passage.  The non-forwarding version is probably most useful when paired with <a href="#macros-update" title="see: &lt;&lt;update&gt;&gt;"><code>&lt;&lt;update&gt;&gt;</code></a>.</p>
+<p><strong>Warning:</strong> <code>&lt;&lt;bind&gt;&gt;</code> is an interactive macro and requires user input.  As a consequence, reloading the page and/or story will not re-execute <code>&lt;&lt;bind&gt;&gt;</code> macros.  It is recommended that you only use <code>&lt;&lt;bind&gt;&gt;</code> in instances where this is not an issue or where you can wrap it in some extra control logic when it is.</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><strong>link_text:</strong> The text of the link.</li>
+<li><strong>passage_name:</strong> The, optional, name of the passage to go to.</li>
+</ul>
+<p><strong>Usage:</strong></p>
+<pre><code>→ With forwarding: set a variable while going to another passage
+Include naughty bits in this story?
+&lt;&lt;bind &quot;Yes, please!&quot; &quot;On with the story&quot;&gt;&gt;&lt;&lt;set $naughty = true&gt;&gt;&lt;&lt;/bind&gt;&gt;
+&lt;&lt;bind &quot;No.&quot; &quot;On with the story&quot;&gt;&gt;&lt;&lt;set $naughty = false&gt;&gt;&lt;&lt;/bind&gt;&gt;
+
+→ Without forwarding: very basic statistic setting example
+Str: &lt;&lt;set $pcStr = 10&gt;&gt;&lt;&lt;id &quot;stats-str&quot;&gt;&gt;&lt;&lt;print $pcStr&gt;&gt;&lt;&lt;/id&gt;&gt; \
+( &lt;&lt;bind &quot;[+]&quot;&gt;&gt;&lt;&lt;set $pcStr++&gt;&gt;&lt;&lt;update &quot;stats-str&quot;&gt;&gt;&lt;&lt;print $pcStr&gt;&gt;&lt;&lt;/update&gt;&gt;&lt;&lt;/bind&gt;&gt; \
+/ &lt;&lt;bind &quot;[-]&quot;&gt;&gt;&lt;&lt;set $pcStr--&gt;&gt;&lt;&lt;update &quot;stats-str&quot;&gt;&gt;&lt;&lt;print $pcStr&gt;&gt;&lt;&lt;/update&gt;&gt;&lt;&lt;/bind&gt;&gt; )
+</code></pre>
+
+</blockquote>
+<h3><code>&lt;&lt;/bind&gt;&gt;</code> <em>or</em> <code>&lt;&lt;endbind&gt;&gt;</code></h3>
+<blockquote>
+<p>Closes the <code>&lt;&lt;bind&gt;&gt;</code> macro.</p>
+</blockquote>
+<hr />
+<p><span id="macros-choice"></span></p>
+<h3><code>&lt;&lt;choice passage_name [link_text]&gt;&gt;</code></h3>
+<blockquote>
+<p><em>Included only for Jonah compatibility.  Creates an internal link (similar to: [[passage_name]] or [[link_text|passage_name]]).</em></p>
+</blockquote>
+<hr />
+<p><span id="macros-class"></span></p>
+<h3><code>&lt;&lt;class class_names [element_name]&gt;&gt;</code></h3>
+<blockquote>
+<p>Wraps its contents within an HTML element (default: <code>&lt;span&gt;</code>; optionally, an alternate element may be specified).</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><strong>class_names:</strong> The names of the classes, separated by spaces, to include on the element.</li>
+<li><strong>element_name:</strong> The, optional, HTML element to wrap the macro's contents within, in lieu of the default <code>&lt;span&gt;</code>.</li>
+</ul>
+<p><strong>Usage:</strong></p>
+<pre><code>&lt;&lt;class &quot;loud&quot;&gt;&gt;ka-boom!&lt;&lt;/class&gt;&gt;      → &lt;span class=&quot;loud&quot;&gt;ka-boom!&lt;/span&gt;
+&lt;&lt;class &quot;loud&quot; div&gt;&gt;ka-boom!&lt;&lt;/class&gt;&gt;  → &lt;div class=&quot;loud&quot;&gt;ka-boom!&lt;/div&gt;
+</code></pre>
+
+</blockquote>
+<h3><code>&lt;&lt;/class&gt;&gt;</code> <em>or</em> <code>&lt;&lt;endclass&gt;&gt;</code></h3>
+<blockquote>
+<p>Closes the <code>&lt;&lt;class&gt;&gt;</code> macro.</p>
+</blockquote>
+<hr />
+<p><span id="macros-classupdate"></span></p>
+<h3><code>&lt;&lt;classupdate target_id [action] class_names&gt;&gt;</code></h3>
+<blockquote>
+<p>Updates the classes of the element with the given ID.</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><strong>target_id:</strong> The ID of the target element.</li>
+<li>
+<strong>action:</strong> Required keyword, used to specify how the classes should be updated on the target element.  Valid actions:
+<ul>
+<li><strong>add:</strong> Specifies that the classes should be added to the target element.</li>
+<li><strong>remove:</strong> Specifies that the classes should be removed from the target element.</li>
+<li><strong>toggle:</strong> Specifies that the classes should be toggled on the target element (i.e. added if they don't exist, removed if they do).</li>
+</ul>
+</li>
+<li><strong>class_names:</strong> The names of the classes, separated by spaces, to update on the element.</li>
+</ul>
+<p><strong>Usage:</strong></p>
+<pre><code>&lt;&lt;classupdate &quot;body&quot; add &quot;day rain&quot;&gt;&gt;     → Add the classes &quot;day&quot; and &quot;rain&quot;
+&lt;&lt;classupdate &quot;body&quot; remove &quot;day rain&quot;&gt;&gt;  → Remove the classes &quot;day&quot; and &quot;rain&quot;
+&lt;&lt;classupdate &quot;body&quot; toggle &quot;day rain&quot;&gt;&gt;  → Toggle the classes &quot;day&quot; and &quot;rain&quot;
+</code></pre>
+
+</blockquote>
+<hr />
+<p><span id="macros-display"></span></p>
+<h3><code>&lt;&lt;display passage_name [element_name]&gt;&gt;</code></h3>
+<blockquote>
+<p>Includes the specified passage within the current passage, optionally wrapping it within an HTML element.</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><strong>passage_name:</strong> The name of the passage to include.</li>
+<li><strong>element_name:</strong> The, optional, HTML element to wrap the included passage in.  If used, the element will include the passage's ID as a class name.</li>
+</ul>
+<p><strong>Usage:</strong></p>
+<pre><code>&lt;&lt;display &quot;Go West&quot;&gt;&gt;      → Include the passage &quot;Go West&quot;
+&lt;&lt;display &quot;Go West&quot; div&gt;&gt;  → Include the passage &quot;Go West&quot;, wrapping it in a &lt;div&gt;
+</code></pre>
+
+</blockquote>
+<hr />
+<p><span id="macros-id"></span></p>
+<h3><code>&lt;&lt;id element_id [element_name]&gt;&gt;</code></h3>
+<blockquote>
+<p>Wraps its contents within an HTML element (default: <code>&lt;span&gt;</code>; optionally, an alternate element may be specified).</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><strong>element_id:</strong> The ID, which <em>must be</em> unique on the page, to include on the element.</li>
+<li><strong>element_name:</strong> The, optional, HTML element to wrap the macro's contents within, in lieu of the default <code>&lt;span&gt;</code>.</li>
+</ul>
+<p><strong>Usage:</strong></p>
+<pre><code>&lt;&lt;id &quot;snack&quot;&gt;&gt;a slice of blueberry pie&lt;&lt;/id&gt;&gt;  → &lt;span id=&quot;snack&quot;&gt;a slice of blueberry pie&lt;/span&gt;
+&lt;&lt;id &quot;box-desc&quot; div&gt;&gt;The box is empty.&lt;&lt;/id&gt;&gt;  → &lt;div id=&quot;box-desc&quot;&gt;The box is empty.&lt;/div&gt;
+</code></pre>
+
+</blockquote>
+<h3><code>&lt;&lt;/id&gt;&gt;</code> <em>or</em> <code>&lt;&lt;endid&gt;&gt;</code></h3>
+<blockquote>
+<p>Closes the <code>&lt;&lt;id&gt;&gt;</code> macro.</p>
+</blockquote>
+<hr />
+<p><span id="macros-if"></span></p>
+<h3><code>&lt;&lt;if conditional_expression&gt;&gt;</code>, <code>&lt;&lt;elseif conditional_expression&gt;&gt;</code>, &amp; <code>&lt;&lt;else&gt;&gt;</code></h3>
+<blockquote>
+<p>Executes its contents if the given conditional expression evaluates to true.  If the condition is false, and an <code>&lt;&lt;elseif&gt;&gt;</code> or <code>&lt;&lt;else&gt;&gt;</code> exists, other contents can be executed.</p>
+<p><strong>Note:</strong> Unlike some other headers, SugarCube does not trim whitespace from the contents of the <code>&lt;&lt;if&gt;&gt;</code> macros, so that authors don't have to resort to various kludges to get whitespace where they want it.  However, this means that extra care must be taken when writing them to ensure that unwanted whitespace is not created.</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><strong>conditional_expression:</strong> A valid conditional expression, yielding either true or false.  See the <a href="http://gimcrackd.com/etc/doc/#code,if" title="http://gimcrackd.com/etc/doc/#code,if">Displaying Text Conditionally</a> and <a href="http://gimcrackd.com/etc/doc/#code,expressions" title="http://gimcrackd.com/etc/doc/#code,expressions">About Expressions</a> sections of the <a href="http://gimcrackd.com/etc/doc/" title="http://gimcrackd.com/etc/doc/">Twine/Twee reference documentation</a> for more information.</li>
+</ul>
+<p><strong>Special (Twine/Twee) conditional operators:</strong></p>
+<ul>
+<li><strong>eq:</strong> Evaluates to true if both sides are equal (e.g. <code>$bullets eq 6</code>).</li>
+<li><strong>neq:</strong> Evaluates to true if both sides are not equal (e.g. <code>$pie neq &quot;cherry&quot;</code>).</li>
+<li><strong>gt:</strong> Evaluates to true if the left side is greater than the right side (e.g. <code>$cash gt 5</code>).</li>
+<li><strong>gte:</strong> Evaluates to true if the left side is greater than or equal to the right side (e.g. <code>$foundStars gte $neededStars</code>).</li>
+<li><strong>lt:</strong> Evaluates to true if the left side is less than the right side (e.g. <code>$shoeCount lt ($peopleCount * 2)</code>).</li>
+<li><strong>lte:</strong> Evaluates to true if the left side is less than or equal to the right side (e.g. <code>65 lte $age</code>).</li>
+<li><strong>and:</strong> Evaluates to true if both sides evaluates to true (e.g. <code>$hasRope and $hasHook</code>).</li>
+<li><strong>or:</strong> Evaluates to true if either side is true (e.g. <code>$hasKey or $hasPicks</code>).</li>
+<li><strong>not:</strong> Flips a true value to a false value, and vice versa (e.g. <code>(not $hungry) or ($location eq &quot;restaurant&quot;)</code>).</li>
+<li><strong>def:</strong> Evaluates to true if the right side is defined (e.g. <code>def $mushrooms</code>).</li>
+<li>
+<p><strong>ndef:</strong> Evaluates to true if the right side is not defined (e.g. <code>ndef $bottlecaps</code>).</p>
+<p>The <code>def</code> and <code>ndef</code> operators have very low precedence, so it is <strong>strongly</strong> recommended that if you mix them with other operators that you wrap them in parentheses (e.g. <code>(def $style) and ($style eq &quot;girly&quot;)</code>).</p>
+</li>
+</ul>
+<p><strong>Usage:</strong></p>
+<pre><code>&lt;&lt;if $daysUntilLoanDue eq 0&gt;&gt;&lt;&lt;display &quot;Panic&quot;&gt;&gt;&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;if $cash lt 5&gt;&gt;
+    I'm sorry, ma'am, but you don't have enough for the pie.
+&lt;&lt;else&gt;&gt;
+    &lt;&lt;set $cash -= 5, $hasMeatPie = true&gt;&gt;
+    One meat pie, fresh out of the oven, coming up!
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;if $affection gte 75&gt;&gt;
+    I love you!
+&lt;&lt;elseif $affection gte 50&gt;&gt;
+    I like you.
+&lt;&lt;elseif $affection gte 25&gt;&gt;
+    I'm okay with you.
+&lt;&lt;else&gt;&gt;
+    Get out of my face.
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;if $hullBreached&gt;&gt;
+    &lt;&lt;if $wearingHardSuit&gt;&gt;
+        &lt;&lt;display &quot;That was close&quot;&gt;&gt;
+    &lt;&lt;elseif $wearingSoftSuit&gt;&gt;
+        &lt;&lt;display &quot;Hole in suit&quot;&gt;&gt;
+    &lt;&lt;else&gt;&gt;
+        &lt;&lt;display &quot;You die&quot;&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+</code></pre>
+
+</blockquote>
+<h3><code>&lt;&lt;/if&gt;&gt;</code> <em>or</em> <code>&lt;&lt;endif&gt;&gt;</code></h3>
+<blockquote>
+<p>Closes the <code>&lt;&lt;if&gt;&gt;</code> macro.</p>
+</blockquote>
+<hr />
+<p><span id="macros-link"></span></p>
+<h3><code>&lt;&lt;link [link_text] link_location [visit_action]&gt;&gt;</code></h3>
+<blockquote>
+<p>Creates a link.  Equivalent to the wikitext link syntax (i.e. [[passage_name]] or [[link_text|link_location]]), save that as a macro it accepts $variables for either argument and, optionally, allows the link to be either removed or deactivated.</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><strong>link_text:</strong> The, optional, text of the link.  If omitted, the link_location will be used instead.</li>
+<li><strong>link_location:</strong> The location to go to, either a passage name or an external URL.</li>
+<li>
+<strong>visit_action:</strong> Optional keyword, used to specify what happens to the macro after a passage link is visited by any <code>&lt;&lt;link&gt;&gt;</code> macro.  Valid actions:
+<ul>
+<li><strong>once:</strong> Specifies that after the passage link is visited, the macro will be removed.</li>
+<li><strong>keep:</strong> Specifies that after the passage link is visited, the macro will be deactivated, while keeping the text of the link.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Usage:</strong></p>
+<pre><code>&lt;&lt;link &quot;Step into the light&quot;&gt;&gt;
+&lt;&lt;link $selectedPassage&gt;&gt;
+&lt;&lt;link &quot;Enter the mansion&quot; &quot;Mansion Foyer&quot;&gt;&gt;
+&lt;&lt;link &quot;Enter a random portal&quot; $somePassage&gt;&gt;
+&lt;&lt;link $me.description &quot;Examine Self&quot;&gt;&gt;
+&lt;&lt;link $show $go&gt;&gt;
+&lt;&lt;link &quot;Take the red pill&quot; once&gt;&gt;
+&lt;&lt;link &quot;You see a mirror.&quot; &quot;Entered magic mirror&quot; keep&gt;&gt;
+</code></pre>
+
+</blockquote>
+<hr />
+<p><span id="macros-print"></span></p>
+<h3><code>&lt;&lt;print expression&gt;&gt;</code></h3>
+<blockquote>
+<p>Outputs the result of the given expression.</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><strong>expression:</strong> A valid expression.  See the <a href="http://gimcrackd.com/etc/doc/#code,expressions" title="http://gimcrackd.com/etc/doc/#code,expressions">About Expressions</a> section of the <a href="http://gimcrackd.com/etc/doc/" title="http://gimcrackd.com/etc/doc/">Twine/Twee reference documentation</a> for more information.</li>
+</ul>
+<p><strong>Usage:</strong></p>
+<pre><code>&lt;&lt;print &quot;You found &quot; + $gold + &quot; gold!&quot;&gt;&gt;  → Outputs: &quot;You found 5 gold!&quot;, assuming $gold is 5
+</code></pre>
+
+</blockquote>
+<hr />
+<p><span id="macros-remember"></span></p>
+<h3><code>&lt;&lt;remember expression&gt;&gt;</code></h3>
+<blockquote>
+<p><em>Functionally identical to <a href="#macros-set" title="see: &lt;&lt;set&gt;&gt;"><code>&lt;&lt;set&gt;&gt;</code></a>, save that it also causes the values of $variables to persist over page reloads, game restarts, and even browser restarts.</em></p>
+</blockquote>
+<hr />
+<p><span id="macros-return"></span></p>
+<h3><code>&lt;&lt;return [# steps]&gt;&gt;</code> <em>or</em> <code>&lt;&lt;return [passage_name]&gt;&gt;</code></h3>
+<blockquote>
+<p><em>Functionally identical to <a href="#macros-back" title="see: &lt;&lt;back&gt;&gt;"><code>&lt;&lt;back&gt;&gt;</code></a>, save that it pushes forward to the destination state, rather than popping back.</em></p>
+</blockquote>
+<hr />
+<p><span id="macros-run"></span></p>
+<h3><code>&lt;&lt;run expression&gt;&gt;</code></h3>
+<blockquote>
+<p><em>Functionally identical to <a href="#macros-set" title="see: &lt;&lt;set&gt;&gt;"><code>&lt;&lt;set&gt;&gt;</code></a>.  Intended to be mnemonically better for uses where the expression is arbitrary code, rather than variables to set (i.e. <code>&lt;&lt;run&gt;&gt;</code> to run code, <code>&lt;&lt;set&gt;&gt;</code> to set variables).</em></p>
+</blockquote>
+<hr />
+<p><span id="macros-runjs"></span></p>
+<h3><code>&lt;&lt;runjs expression&gt;&gt;</code></h3>
+<blockquote>
+<p><em>Functionally identical to <a href="#macros-run" title="see: &lt;&lt;run&gt;&gt;"><code>&lt;&lt;run&gt;&gt;</code></a>, save that it performs no $variable or special (Twine/Twee) operator processing on the expression.  For instances where you need to run some pure JavaScript and don't want to (a) waste time processing code that has no $variables or special (Twine/Twee) operators in it and/or (b) worry about the parser possibly clobbering the code.</em></p>
+</blockquote>
+<hr />
+<p><span id="macros-set"></span></p>
+<h3><code>&lt;&lt;set expression&gt;&gt;</code></h3>
+<blockquote>
+<p>Sets $variables based on the given expression.</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><strong>expression:</strong> A valid expression.  See the <a href="http://gimcrackd.com/etc/doc/#code,variables" title="http://gimcrackd.com/etc/doc/#code,variables">Remembering Things With Variables</a> and <a href="http://gimcrackd.com/etc/doc/#code,expressions" title="http://gimcrackd.com/etc/doc/#code,expressions">About Expressions</a> sections of the <a href="http://gimcrackd.com/etc/doc/" title="http://gimcrackd.com/etc/doc/">Twine/Twee reference documentation</a> for more information.</li>
+</ul>
+<p><strong>Usage:</strong></p>
+<pre><code>&lt;&lt;set $cheese = &quot;a nice, sharp cheddar&quot;&gt;&gt;  → Assigns &quot;a nice, sharp cheddar&quot; to $cheese
+&lt;&lt;set $chestEmpty = true, $gold += 5&gt;&gt;     → Assigns true to $chestEmpty and adds 5 to the value of $gold
+</code></pre>
+
+</blockquote>
+<hr />
+<p><span id="macros-silently"></span></p>
+<h3><code>&lt;&lt;silently&gt;&gt;</code></h3>
+<blockquote>
+<p>Causes any output generated within its body to be discarded.  Generally, only really useful for formatting blocks of macros for ease of use/readability, while ensuring that no output is generated, from spacing or whatnot.</p>
+<p><strong>Arguments:</strong> <em>none</em></p>
+<p><strong>Usage:</strong></p>
+<pre><code>&lt;&lt;silently&gt;&gt;
+
+// Initial variable setup
+&lt;&lt;set
+      $bestPony  = &quot;Vinyl Scratch&quot;
+    , $nexus6    = &quot;Roy Batty&quot;
+    , $theAnswer = 42
+    , $theCake   = &quot;IS A LIE!&quot;
+&gt;&gt;
+
+// Initial logic
+…
+etc.
+
+&lt;&lt;/silently&gt;&gt;
+</code></pre>
+
+</blockquote>
+<h3><code>&lt;&lt;/silently&gt;&gt;</code> <em>or</em> <code>&lt;&lt;endsilently&gt;&gt;</code></h3>
+<blockquote>
+<p>Closes the <code>&lt;&lt;silently&gt;&gt;</code> macro.</p>
+</blockquote>
+<hr />
+<p><span id="macros-unset"></span></p>
+<h3><code>&lt;&lt;unset variable_list&gt;&gt;</code></h3>
+<blockquote>
+<p>Unsets $variables, even from the <a href="#macros-remember" title="see: &lt;&lt;remember&gt;&gt;"><code>&lt;&lt;remember&gt;&gt;</code></a> store.</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><strong>variable_list:</strong> A list of $variables.</li>
+</ul>
+<p><strong>Usage:</strong></p>
+<pre><code>&lt;&lt;unset $someTempVar&gt;&gt;
+&lt;&lt;unset $cheese, $chestEmpty, $gold&gt;&gt;
+</code></pre>
+
+</blockquote>
+<hr />
+<p><span id="macros-update"></span></p>
+<h3><code>&lt;&lt;update target_id [action]&gt;&gt;</code></h3>
+<blockquote>
+<p>Executes its contents and writes the output to the element with the given ID (default: replacing the contents of the element; optionally, appending or prepending to the element).  Probably most useful when paired with <a href="#macros-id" title="see: &lt;&lt;id&gt;&gt;"><code>&lt;&lt;id&gt;&gt;</code></a> and some method of control (e.g. <a href="#macros-bind" title="see: &lt;&lt;bind&gt;&gt;"><code>&lt;&lt;bind&gt;&gt;</code></a> or <a href="#macros-if" title="see: &lt;&lt;if&gt;&gt;"><code>&lt;&lt;if&gt;&gt;</code></a>).</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><strong>target_id:</strong> The ID of the target element.</li>
+<li>
+<strong>action:</strong> Optional keyword, used to specify how the output should be written to the target element.  Valid actions:
+<ul>
+<li><strong>append:</strong> Specifies that the output should be appended to the target element.</li>
+<li><strong>prepend:</strong> Specifies that the output should be prepended to the target element.</li>
+<li><strong>replace:</strong> Specifies that the output should replace the contents of the target element (default action).</li>
+</ul>
+</li>
+</ul>
+<p><strong>Usage:</strong></p>
+<pre><code>→ Example setup
+I'd like a &lt;&lt;id &quot;snack&quot;&gt;&gt;cupcake&lt;&lt;/id&gt;&gt;, please.
+
+→ Replace the contents of the target element
+&lt;&lt;update &quot;snack&quot;&gt;&gt;slice of Key lime pie&lt;&lt;/update&gt;&gt;
+
+→ Append to the target element
+&lt;&lt;update &quot;snack&quot; append&gt;&gt; and a mojito&lt;&lt;/update&gt;&gt;
+
+→ Prepend to the target element
+&lt;&lt;update &quot;snack&quot; prepend&gt;&gt;big &lt;&lt;/update&gt;&gt;
+</code></pre>
+
+</blockquote>
+<h3><code>&lt;&lt;/update&gt;&gt;</code> <em>or</em> <code>&lt;&lt;endupdate&gt;&gt;</code></h3>
+<blockquote>
+<p>Closes the <code>&lt;&lt;update&gt;&gt;</code> macro.</p>
+</blockquote>
+<hr />
+<p><span id="macros-widget"></span></p>
+<h3><code>&lt;&lt;widget widget_name&gt;&gt;</code></h3>
+<blockquote>
+<p>Creates a new widget macro (henceforth, widget) with the given name.  Widgets allow you to create macros by using the standard macros and wiki text that you use normally within your story.  Widgets may access arguments passed to them via the <code>$args</code> array (indices: 0 is the full argument string, 1+ are the parsed arguments).</p>
+<p><strong>Notes:</strong> </p>
+<ul>
+<li>Global widgets (i.e. widgets defined in a passage tagged with &quot;widget&quot;) may be safely used anywhere.</li>
+<li>Local widgets (i.e. widgets defined in a normal passage) <em>must not</em> be used in subsequent passages, as they will be lost on page reload.  Only use local widgets within their originating passage.</li>
+<li>The <code>$args</code> variable is used internally to store passed arguments (and the full argument string).  When a widget is called, any existing <code>$args</code> variable is stored for the duration of the call and restored after.  This means that widgets may be nested and non-widget use of an <code>$args</code> variable is safe (n.b. this does have the effect that an <code>$args</code> variable external to a widget is inaccessible to it unless passed in as an argument).</li>
+<li>The variables used in widgets are part of a story's variable store, so when creating temp/scratch variables, care <em>must be</em> taken not to overwrite important story variables.  Also, temp/scratch variables should normally be initialized or you could pick up a value from a previous execution.</li>
+</ul>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><strong>widget_name:</strong> The name of the created widget.  If the name of an existing widget is chosen, the new widget will overwrite the older version.  The names of existing standard macros are invalid widget names, so you cannot overwrite standard macros, and any attempts to do so will cause an error.</li>
+</ul>
+<p><strong>Usage:</strong></p>
+<pre><code>→ creating a gender pronoun widget
+&lt;&lt;widget she&gt;&gt;&lt;&lt;if $pcSex eq &quot;female&quot;&gt;&gt;she&lt;&lt;else&gt;&gt;he&lt;&lt;/if&gt;&gt;&lt;&lt;/widget&gt;&gt;
+→ using it
+&quot;Are you sure that &lt;&lt;she&gt;&gt; can be trusted?&quot;
+
+→ creating a silly print widget
+&lt;&lt;widget p&gt;&gt;&lt;&lt;if $args[1]&gt;&gt;&lt;&lt;print $args[1]&gt;&gt;&lt;&lt;else&gt;&gt;Mum's the word!&lt;&lt;/if&gt;&gt;&lt;&lt;/widget&gt;&gt;
+→ using it
+&lt;&lt;p&gt;&gt;        → outputs: Mum's the word!
+&lt;&lt;p &quot;Hi!&quot;&gt;&gt;  → outputs: Hi!
+</code></pre>
+
+</blockquote>
+<h3><code>&lt;&lt;/widget&gt;&gt;</code> <em>or</em> <code>&lt;&lt;endwidget&gt;&gt;</code></h3>
+<blockquote>
+<p>Closes the <code>&lt;&lt;widget&gt;&gt;</code> macro.</p>
+</blockquote>
+<p><span id="functions"></span></p>
+<h2>Utility Functions</h2>
+<p>Various utility functions for use in macros or custom code.</p>
+<p><span id="functions-mathclamp"></span></p>
+<h3><code>Math.clamp(num, min, max)</code></h3>
+<blockquote>
+<p>Returns the passed numerical clamped to the specified bounds.  Does not modify the original value.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>num:</strong> The numerical to clamp.</li>
+<li><strong>min:</strong> The lower bound of the number.</li>
+<li><strong>max:</strong> The upper bound of the number.</li>
+</ul>
+<p><strong>Usage:</strong></p>
+<pre><code>Math.clamp($stat, 0, 200)  → clamps $stat to the bounds 0–200 and returns the new value
+</code></pre>
+
+</blockquote>
+<hr />
+<p><span id="functions-getrandom"></span></p>
+<h3><code>getRandom(min, max)</code></h3>
+<blockquote>
+<p>Returns a pseudo-random whole number (integer) within the range of the given bounds.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>min:</strong> The lower bound of the random number.</li>
+<li><strong>max:</strong> The upper bound of the random number.</li>
+</ul>
+<p><strong>Usage:</strong></p>
+<pre><code>getRandom(1, 6)  → returns a number in the range of 1–6
+</code></pre>
+
+</blockquote>
+<hr />
+<p><span id="functions-getrandombrbitrary"></span></p>
+<h3><code>getRandomArbitrary(min, max)</code></h3>
+<blockquote>
+<p>Returns a pseudo-random real number (floating-point) within the range of the given bounds.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>min:</strong> The lower bound of the random number.</li>
+<li><strong>max:</strong> The upper bound of the random number.</li>
+</ul>
+<p><strong>Usage:</strong></p>
+<pre><code>getRandomArbitrary(1.0, 6.0)  → returns a number in the range of 1.0–6.0
+</code></pre>
+
+</blockquote>
+<p><span id="config"></span></p>
+<h2>Configuration Object</h2>
+<p>Certain properties on the configuration object (<code>config</code>) may be set within a script passage to control various aspects of SugarCube's behavior.</p>
+<p><span id="config-displaypassagetitles"></span></p>
+<h3><code>config.displayPassageTitles</code></h3>
+<blockquote>
+<p><strong>Type:</strong> <em>boolean</em>; <strong>Default value:</strong> <em><code>false</code></em><br />
+Determines whether passage titles are appended to the story title when passages are displayed.</p>
+<pre><code>config.displayPassageTitles = true;
+</code></pre>
+
+</blockquote>
+<p><span id="config-historymode"></span></p>
+<h3><code>config.historyMode</code></h3>
+<blockquote>
+<p><strong>Type:</strong> <em>integer</em>; <strong>Default value:</strong> <em>auto-detected</em><br />
+An auto-detected property, which isn't meant to be user modified.  However, story authors who wish to force the use of Hash Tag mode may set it to <code>modes.hashTag</code> to do so.</p>
+<pre><code>config.historyMode = modes.hashTag;
+</code></pre>
+
+</blockquote>
+<p><span id="config-saves-id"></span></p>
+<h3><code>config.saves.id</code></h3>
+<blockquote>
+<p><strong>Type:</strong> <em>string</em>; <strong>Default value:</strong> <em>slugified story title</em><br />
+Sets the story ID associated with saves.</p>
+<pre><code>config.saves.id = &quot;the-masculine-mystique-part-1&quot;;
+</code></pre>
+
+</blockquote>
+<p><span id="config-saves-isallowed"></span></p>
+<h3><code>config.saves.isAllowed</code></h3>
+<blockquote>
+<p><strong>Type:</strong> <em>function</em>; <strong>Default value:</strong> <em>none</em><br />
+Returns whether saving is allowed within the current context.</p>
+<pre><code>config.saves.isAllowed = function () { /* code */ };
+</code></pre>
+
+</blockquote>
+<p><span id="config-saves-onload"></span></p>
+<h3><code>config.saves.onLoad</code></h3>
+<blockquote>
+<p><strong>Type:</strong> <em>function</em>; <strong>Default value:</strong> <em>none</em><br />
+Performs any required pre-processing before the save data is loaded.</p>
+<pre><code>config.saves.onLoad = function (save) { /* code */ };
+</code></pre>
+
+</blockquote>
+<p><span id="config-saves-onsave"></span></p>
+<h3><code>config.saves.onSave</code></h3>
+<blockquote>
+<p><strong>Type:</strong> <em>function</em>; <strong>Default value:</strong> <em>none</em><br />
+Performs any required post-processing before the save data is saved.</p>
+<pre><code>config.saves.onSave = function (save) { /* code */ };
+</code></pre>
+
+</blockquote>
+<p><span id="config-saves-slots"></span></p>
+<h3><code>config.saves.slots</code></h3>
+<blockquote>
+<p><strong>Type:</strong> <em>integer</em>; <strong>Default value:</strong> <em><code>8</code></em><br />
+Sets the maximum number of available save slots.</p>
+<pre><code>config.saves.slots = 4;
+</code></pre>
+
+</blockquote>
+<p><span id="config-saves-version"></span></p>
+<h3><code>config.saves.version</code></h3>
+<blockquote>
+<p><strong>Type:</strong> <em>none</em>; <strong>Default value:</strong> <em>none</em><br />
+Sets the version ID associated with saves.  Unused by SugarCube.  Meant to be used by the importer function.</p>
+<pre><code>config.saves.version = 100;
+config.saves.version = 2.2;
+config.saves.version = &quot;booty-call-edition&quot;;
+</code></pre>
+
+</blockquote>
+<p><span id="html"></span></p>
+<h2>HTML Layout</h2>
+<p>The hierarchy of the document body.</p>
+<blockquote>
+<pre><code>&lt;body class=&quot;…&quot; id=&quot;body&quot;&gt;
+    &lt;div id=&quot;sidebar&quot;&gt;
+        &lt;header id=&quot;title&quot;&gt;
+            &lt;div id=&quot;storyBanner&quot;&gt;&lt;/div&gt;
+            &lt;h1 id=&quot;storyTitle&quot;&gt;&lt;/h1&gt;
+            &lt;div id=&quot;storySubtitle&quot;&gt;&lt;/div&gt;
+            &lt;p id=&quot;storyAuthor&quot;&gt;&lt;/p&gt;
+        &lt;/header&gt;
+        &lt;div id=&quot;storyCaption&quot;&gt;&lt;/div&gt;
+        &lt;nav&gt;
+            &lt;ul id=&quot;menu&quot;&gt;
+                &lt;li id=&quot;storyMenu&quot;&gt;&lt;/li&gt;
+                &lt;li id=&quot;saves&quot;&gt;&lt;a&gt;Saves&lt;/a&gt;&lt;/li&gt;
+                &lt;li id=&quot;snapback&quot;&gt;&lt;a&gt;Rewind&lt;/a&gt;&lt;/li&gt;
+                &lt;li id=&quot;restart&quot;&gt;&lt;a&gt;Restart&lt;/a&gt;&lt;/li&gt;
+                &lt;li id=&quot;share&quot;&gt;&lt;a&gt;Share&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+        &lt;footer&gt;
+            &lt;p id=&quot;credits&quot;&gt;&lt;/p&gt;
+            &lt;p id=&quot;version&quot;&gt;&lt;/p&gt;
+        &lt;/footer&gt;
+
+        &lt;!-- pop menu targets --&gt;
+        &lt;div id=&quot;savesMenu&quot; class=&quot;menu&quot;&gt;&lt;/div&gt;
+        &lt;div id=&quot;snapbackMenu&quot; class=&quot;menu&quot;&gt;&lt;/div&gt;
+        &lt;div id=&quot;shareMenu&quot; class=&quot;menu&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div role=&quot;main&quot; id=&quot;passages&quot;&gt;             &lt;!-- The overall passage container --&gt;
+        &lt;section class=&quot;passage …&quot; id=&quot;…&quot;&gt;      &lt;!-- The active passage container --&gt;
+            &lt;header class=&quot;header&quot;&gt;&lt;/header&gt;    &lt;!-- The active passage header (unused) --&gt;
+            &lt;div class=&quot;content&quot;&gt;&lt;/div&gt;         &lt;!-- The active passage content --&gt;
+            &lt;footer class=&quot;footer&quot;&gt;&lt;/footer&gt;    &lt;!-- The active passage footer (unused) --&gt;
+        &lt;/section&gt;
+    &lt;/div&gt;
+
+    &lt;div id=&quot;storeArea&quot;&gt;&lt;/div&gt;
+
+&lt;/body&gt;
+</code></pre>
+
+</blockquote>
+<p><span id="css"></span></p>
+<h2>CSS Notes</h2>
+<p>All internally created IDs and class names are normalized (which entails: removing characters which are not alphanumerics, underscores, hyphens, en-/em-dashes, or whitespace, then replacing any remaining non-alphanumeric characters with underscores, one per group, and finally converting the result to lowercase; e.g. the passage <code>Gone fishin'</code> becomes <code>passage_gone_fishin</code>).</p>
+<p>When displaying a passage, Twine/Twee tags on the passage are added to the active passage's container element and the page's <code>&lt;body&gt;</code> element as CSS classes.  Special tag names such as &quot;script&quot;, &quot;stylesheet&quot;, and &quot;widget&quot; are excluded from this mapping (as an exception, &quot;bookmark&quot; is not excluded).</p>
+<p><span id="incompatibilities"></span></p>
+<h2>Incompatibilities With Existing Code</h2>
+<p>Some sections of code have been heavily rewritten, so some incompatibilities are inevitable.  Most issues should be very easy to fix, so it's not all doom and gloom.  See the <em>(pending) <strong>API documentation</strong></em> for more information.</p>
+<p>However, in brief, the incompatibilities center around the History class.  So, any macros, or other code, accessing the <code>state</code> variable in any way are very possibly broken.  In SugarCube:</p>
+<ul>
+<li>Unless you <em>absolutely must</em> interact with the history stack itself, most interactions should be with the currently active state, <code>state.active</code>.</li>
+<li>The history stack no longer grows backwards, so <code>state.history[0]</code> is not a synonym for the top of the stack, it's the bottom.  In SugarCube, you'd use <code>state.top</code> (property) or <code>state.peek()</code> (method) to look at the top of the stack.</li>
+<li>The history stack no longer contains &quot;dirty&quot; (i.e. post-rendered/executed) states.</li>
+</ul>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
