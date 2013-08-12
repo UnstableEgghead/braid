@@ -35,27 +35,32 @@ class TiddlyWiki:
 				
 		return default
 
-	def getBroken (self):
+	def getLinks (self):
 		"""Gets broken and orphaned passages."""
 		
-                orphans = self.tiddlers.keys()
-                orphanOmit = [ "Start", "ShareMenu", "StoryAuthor", "StoryBanner", 
-                      "StoryInit", "StoryCaption", "StoryMenu", "PassageReady", 
-                      "StorySubtitle", "StoryTitle"]
-                for omit in orphanOmit:
-                        if orphans.count(omit): orphans.remove(omit)
+                passagelinks = {}
                 broken = {}
+                orphans = []
+                links = []
+                passageomit = { "Start", "ShareMenu", "StoryAuthor", "StoryBanner", 
+                      "StoryInit", "StoryCaption", "StoryMenu", "PassageReady", 
+                      "StorySubtitle", "StoryTitle"}
+                tagomit = { "script", "widget", "stylesheet" }
                 for passage in self.tiddlers.keys():
-                        links = []
+                        passagelinks[passage] = []
+                for passage in passagelinks.keys():
+                        del links[:]
                         for link in self.tiddlers[passage].links():
-                                if orphans.count(link): orphans.remove(link)
-                                if not link in self.tiddlers: links.append(link)
-                        if links: broken[passage] = links
-                for passage in orphans:
-                        if ("script" in self.tiddlers[passage].tags) or \
-                           ("stylesheet" in self.tiddlers[passage].tags) or \
-                           ("widget" in self.tiddlers[passage].tags): orphans.remove(passage)
-                return broken, orphans
+                                if not link in passagelinks: links.append(link)
+                                else: passagelinks[link].append(passage)
+                        if links: 
+                                broken[passage] = [] + links
+                for passage in passagelinks.keys():
+                        if (not len(passagelinks[passage])) and \
+                           (not passage in passageomit) and \
+                           (not tagomit.intersection(self.tiddlers[passage].tags)):
+                                orphans.append(passage)
+                return broken, orphans, passagelinks
 
 	def toTwee (self, order = None):
 		"""Returns Twee source code for this TiddlyWiki."""
@@ -381,9 +386,8 @@ class Tiddler:
 		# <<link ''>>
 		
 		linkmacros = list()
-                for block in re.findall(r'\<\<link\s+(.+?)\s*\>\>', self.text, re.IGNORECASE + re.DOTALL):
-                        linkBlock = re.findall(r'[\'"](.+?)[\'"]', block, re.DOTALL) 
-                        linkmacros.append(linkBlock[len(linkBlock) - 1])
+                for block in re.findall(r'\<\<link\s+(.+?\s*\>\>)', self.text, re.IGNORECASE + re.DOTALL):
+                        linkmacros = linkmacros + (re.findall(r'"([^"]+?)"(?=\s*\w*\s*\>\>)', block, re.IGNORECASE + re.DOTALL))
 
 		# [img['']['']]
 		

@@ -7,7 +7,7 @@ from tiddlywiki import TiddlyWiki
 
 
 def usage():
-   print 'usage: braid [-a author] [-t target] [-m mergefile] [-o outputfile] [-l file list] [-r recurse dir] [-f filetype] [-p proofcopy] [-b brokenlink] source1 [source2..]'
+   print 'usage: braid [-a author] [-t target] [-m mergefile] [-o outputfile] [-l file list] [-d directory] [-f filetype] [-p proofcopy] [(-b -r)-e errorfile] source1 [source2..]'
 
 
 def main (argv):
@@ -20,15 +20,18 @@ def main (argv):
    output = ''
    rtfOutput = ''
    fileList = ''
-   recursePath = ''
+   directory = ''
    twineFiletype = '.tw'
-   brokenLink = ''
+   errorfile = ''
+   brokenLink = False
+   showReverse = False
 
    # read command line switches
 
    try:
-      opts, args = getopt.getopt(argv, 'a:m:t:o:l:r:f:p:b:', ['author=', 'merge=', \
-         'target=', 'output=', 'list=', 'recursive=', 'filetype=', 'proofcopy=', 'brokenlink='])
+      opts, args = getopt.getopt(argv, 'a:m:t:o:l:d:f:p:bre:', ['author=', 'merge=', \
+         'target=', 'output=', 'list=', 'directory=', 'filetype=', 'proofcopy=', \
+         'brokenlink', 'revpassage', 'errorfile='])
    except getopt.GetoptError:
       usage()
       sys.exit(2)
@@ -44,14 +47,18 @@ def main (argv):
          output = arg
       elif (opt in ('-l', '--list')):
          fileList = arg
-      elif (opt in ('-r', '--recursive')):
-         recursePath = arg
+      elif (opt in ('-d', '--directory')):
+         directory = arg
       elif (opt in ('-f', '--filetype')):
          twineFiletype = arg
       elif (opt in ('-p', '--proofcopy')):
          rtfOutput = arg
+      elif (opt in ('-e', '--errorfile')):
+         errorfile = arg
       elif (opt in ('-b', '--brokenlink')):
-         brokenLink = arg
+         brokenLink = True
+      elif (opt in ('-r', '--revpassage')):
+         showReverse = True
 
    # construct a TW object
 
@@ -97,7 +104,7 @@ def main (argv):
          sources.append(file)
 
    # Recurse through directory, if specified
-   for root, dirnames, filenames in os.walk(recursePath):
+   for root, dirnames, filenames in os.walk(directory):
       for filename in fnmatch.filter(filenames, '*' + twineFiletype):
          sources.append(os.path.join(root, filename))
 
@@ -124,17 +131,25 @@ def main (argv):
       print tw.toHtml(scriptPath, target)
 
    # Outputs a broken link/orphan list if requested
-   if brokenLink != '':
-      broken, orphans = tw.getBroken()
-      brokenLinkFile = open(brokenLink, 'w')
-      brokenLinkFile.write("Broken Links:\n")
-      for passage in broken:
-         brokenLinkFile.write(" - " + passage + "\n")
-         for link in broken[passage]:
-            brokenLinkFile.write("    + " + link + "\n")
-      brokenLinkFile.write("Orphaned Passages:\n")
-      for passage in orphans:
-         brokenLinkFile.write(" - " + passage + "\n")
+   if errorfile != '':
+      broken, orphans, passagelinks = tw.getLinks()
+      errorFile = open(errorfile, 'w')
+      if brokenLink:
+         errorFile.write("Broken Links:\n")
+         for passage in broken:
+            errorFile.write(" - " + passage + "\n")
+            for link in broken[passage]:
+               errorFile.write("    + " + link + "\n")
+         errorFile.write("Orphaned Passages:\n")
+         for passage in orphans:
+            errorFile.write(" - " + passage + "\n")
+      if showReverse:
+         errorFile.write("Links to Passages:\n")
+         for passage in passagelinks.keys():
+            errorFile.write(" - " + passage + ": " + str(len(passagelinks[passage])) + " links to passage\n")
+            for linkto in passagelinks[passage]:
+               errorFile.write("     + " + linkto + "\n")
+      errorFile.close()
 
 if __name__ == '__main__':
    main(sys.argv[1:])
