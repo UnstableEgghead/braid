@@ -1,6 +1,7 @@
 #!/usr/bin/env python2
 
 import sys, os, getopt, glob, codecs, fnmatch
+from ConfigParser import SafeConfigParser
 scriptPath = os.path.realpath(os.path.dirname(sys.argv[0]))
 sys.path.append(scriptPath + os.sep + 'lib')
 from tiddlywiki import TiddlyWiki
@@ -11,20 +12,30 @@ def usage():
 
 
 def main (argv):
+   # Read in Config file if present
+   config = SafeConfigParser()
+   config.read(['braid.cfg', 'braid.ini'])
 
-   # defaults
+   # Read settings from config file or set to defaults
 
-   author = 'braid'
-   target = 'sugarcube'
-   merge = ''
-   output = ''
-   rtfOutput = ''
-   fileList = ''
-   directory = ''
-   twineFiletype = '.tw'
-   errorfile = ''
-   brokenLink = False
-   showReverse = False
+   # General Options
+   author = config.get('General', 'Author').strip('"') if config.has_option('General', 'Author') else 'braid'
+   target = config.get('General', 'Target').strip('"') if config.has_option('General', 'Target') else 'sugarcube'
+
+   # Source Options
+   merge = config.get('Source', 'MergeFile').strip('"') if config.has_option('Source', 'MergeFile') else ''
+   fileList = config.get('Source', 'FileList').strip('"') if config.has_option('Source', 'FileList') else ''
+   directory = config.get('Source', 'Directory').strip('"') if config.has_option('Source', 'Directory') else ''
+   twineFiletype = config.get('Source', 'TwineFiletype').strip('"') if config.has_option('Source', 'TwineFiletype') else '.tw'
+
+   # Output Options
+   output = config.get('Output', 'OutputFile').strip('"') if config.has_option('Output', 'OutputFile') else ''
+   rtfOutput = config.get('Output', 'RtfOutputFile').strip('"') if config.has_option('Output', 'RtfOutputFile') else ''
+   errorfile = config.get('Output', 'ErrorFile').strip('"') if config.has_option('Output', 'ErrorFile') else ''
+
+   # Toggle Options
+   brokenLink = config.getboolean('Toggles', 'BrokenLinks') if config.has_option('Toggles', 'BrokenLinks') else False
+   showReverse = config.getboolean('Toggles', 'ShowReverse') if config.has_option('Toggles', 'ShowReverse') else False
 
    # read command line switches
 

@@ -21,6 +21,15 @@ sugarcane called SugarCube, with many new macros and general bugfixes by TheMadE
 be found at http://www.motoslave.net/sugarcube/ . SugarCube is the default
 header used by braid, but it can be changed via the command line parameters.
 
+Braid can also use, instead of command line parameters, a special configuration
+file in order to have an easier time doing builds over many times. The filename
+of this file must be either braid.cfg or braid.ini, and it must be located
+within the directory that you execute braid. So, if for example you execute
+braid from the directory ~/Documents/twine/game, then braid.cfg must be
+located within the ~/Documents/twine/game directory, and not from wherever
+braid is located. There is an example configuration file in the format that
+braid expects and fully commented at doc/braid.cfg.example .
+
 The parameters for braid are as follows:
    -a --author:
       This sets the author for the file, which primarily shows up in the html

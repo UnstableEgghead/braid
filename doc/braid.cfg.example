@@ -1,0 +1,20 @@
+; Braid Example Configuration
+
+[General]
+Author = "Braid" ; The author set within the HTML
+Target = "sugarcube" ; The target header to use
+
+[Output]
+OutputFile = "index.html" ; The HTML output filename
+RtfOutputFile = "proof.rtf" ; The RTF proofing copy filename
+ErrorFile = "errors.txt" ; The filename of where errors are logged
+
+[Source]
+MergeFile = "" ; HTML file that is to be merged into the output, passages only
+Directory = "Game" ; Directory to search for twee source files
+TwineFiletype = ".txt" ; The filetype that braid looks for during directory search
+FileList = "" ; A file containing a list of files to add
+
+[Toggles]
+BrokenLinks = true ; Whether to output broken links and orphan passages to the ErrorFile
+ShowReverse = false ; Whether to output a reverse passage list to the ErrorFile
