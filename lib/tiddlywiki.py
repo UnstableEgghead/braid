@@ -286,7 +286,7 @@ class Tiddler:
 		output += '" modified="' + encode_date(self.modified) + '"'
 		output += ' created="' + encode_date(self.created) + '"' 
 		output += ' modifier="' + author + '">'
-		output += encode_text(self.text) + '</div>'
+		output += encode_text(self.text, self.tags) + '</div>'
 		
 		return output
 		
@@ -379,11 +379,12 @@ class Tiddler:
 #
 
 
-def encode_text (text):
+def encode_text (text, tags):
 	"""Encodes a string for use in HTML output."""
 	output = text
 	output = output.replace('\\', '\s')
-	output = re.sub(r'\r?\n', r'\\n', output)
+        if (not 'Twine.debug' in tags): output = re.sub(r'\r?\n', r'\\n', output)
+        elif 'script' in tags: output = "\n" + output + "\n"
 	output = output.replace('<', '&lt;')
 	output = output.replace('>', '&gt;')
 	output = output.replace('"', '&quot;')

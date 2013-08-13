@@ -8,7 +8,7 @@ from tiddlywiki import TiddlyWiki
 
 
 def usage():
-   print 'usage: braid [-a author] [-t target] [-m mergefile] [-o outputfile] [-l file list] [-d directory] [-f filetype] [-p proofcopy] [(-b -r)-e errorfile] source1 [source2..]'
+   print 'usage: braid [-a author] [-t target] [-m mergefile] [-o outputfile] [-l file list] [-d directory] [-f filetype] [-p proofcopy] [(-b -r)-e errorfile] [-n newlines] source1 [source2..]'
 
 
 def main (argv):
@@ -32,6 +32,7 @@ def main (argv):
    output = config.get('Output', 'OutputFile').strip('"') if config.has_option('Output', 'OutputFile') else ''
    rtfOutput = config.get('Output', 'RtfOutputFile').strip('"') if config.has_option('Output', 'RtfOutputFile') else ''
    errorfile = config.get('Output', 'ErrorFile').strip('"') if config.has_option('Output', 'ErrorFile') else ''
+   newlines = config.get('Output', 'Newlines').strip('"') if config.has_option('Output', 'Newlines') else ''
 
    # Toggle Options
    brokenLink = config.getboolean('Toggles', 'BrokenLinks') if config.has_option('Toggles', 'BrokenLinks') else False
@@ -40,9 +41,9 @@ def main (argv):
    # read command line switches
 
    try:
-      opts, args = getopt.getopt(argv, 'a:m:t:o:l:d:f:p:bre:', ['author=', 'merge=', \
+      opts, args = getopt.getopt(argv, 'a:m:t:o:l:d:f:p:bre:n:', ['author=', 'merge=', \
          'target=', 'output=', 'list=', 'directory=', 'filetype=', 'proofcopy=', \
-         'brokenlink', 'revpassage', 'errorfile='])
+         'brokenlink', 'revpassage', 'errorfile=', 'newlines='])
    except getopt.GetoptError:
       usage()
       sys.exit(2)
@@ -70,6 +71,8 @@ def main (argv):
          brokenLink = True
       elif (opt in ('-r', '--revpassage')):
          showReverse = True
+      elif (opt in ('-n', '--newlines')):
+         newlines = arg
 
    # construct a TW object
 
@@ -132,6 +135,16 @@ def main (argv):
       rtfOutputFile = open(rtfOutput, 'w')
       rtfOutputFile.write(tw.toRtf().encode('utf-8'))
       rtfOutputFile.close()
+
+   # Don't strip the newlines, if requested
+   if newlines != '':
+      if newlines == 'all':
+         for passage in tw.tiddlers.keys():
+            tw.tiddlers[passage].tags.append('Twine.debug')
+      else:
+         for passage in tw.tiddlers.keys():
+            if newlines in tw.tiddlers[passage].tags:
+               tw.tiddlers[passage].tags.append('Twine.debug')
 
    # Either Output to a file if requested, or to standard output
    if output != '':

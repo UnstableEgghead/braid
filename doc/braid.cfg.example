@@ -8,6 +8,7 @@ Target = "sugarcube" ; The target header to use
 OutputFile = "index.html" ; The HTML output filename
 RtfOutputFile = "proof.rtf" ; The RTF proofing copy filename
 ErrorFile = "errors.txt" ; The filename of where errors are logged
+Newlines = "" ; Skip stripping newlines, either tag name or all
 
 [Source]
 MergeFile = "" ; HTML file that is to be merged into the output, passages only

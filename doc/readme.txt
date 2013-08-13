@@ -101,6 +101,10 @@ The parameters for braid are as follows:
       tags. This is primarily used to ease with proofreading of the game
       itself. The various links and macros have their own special formatting
       such as italics and underlines.
+   -n --newlines:
+      If set, braid will skip stripping newlines on passages containing either
+      the tagname given, or if all, will not strip newlines for all passage
+      types.
 
 The parameters for unbraid are as follows:
    -a --author:
