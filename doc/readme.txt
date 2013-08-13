@@ -17,8 +17,8 @@ files.
 There are also 3 targets included with the compiler by default, there is
 upgraded versions of the sugarcane and jonah headers, which were taken from
 https://github.com/tweecode/twine . The third header file is a variant of
-sugarcane called SugarCube, with many new macros and general bugfixes by TheMadExile which can
-be found at http://www.motoslave.net/sugarcube/ . SugarCube is the default
+sugarcane called SugarCube, with many new macros and general bugfixes by TheMadExile
+which can be found at http://www.motoslave.net/sugarcube/ . SugarCube is the default
 header used by braid, but it can be changed via the command line parameters.
 
 Braid can also use, instead of command line parameters, a special configuration
@@ -29,6 +29,27 @@ braid from the directory ~/Documents/twine/game, then braid.cfg must be
 located within the ~/Documents/twine/game directory, and not from wherever
 braid is located. There is an example configuration file in the format that
 braid expects and fully commented at doc/braid.cfg.example .
+
+Passages tagged with special tags execute special functionality within the
+compiler. These tags are:
+   Twine.private: 
+      These passages are basically viewed as comments, and will not be 
+      included in the final html file.
+   Twine.system:
+      Same behavior as Twine.private.
+   Twine.media:
+      This will automatically base64 encode and embed any image files found
+      within the source text. The currently supported formats are png, gif and
+      jpg. Be aware that Internet Explorer prior to 8 has no support for this,
+      and 8 has a 32kb filesize limit. IE9 and above do not have these
+      limitations. The files must be located relative to the current directory
+      when braid is executed, so if it is executed in ~/Documents/twine/game,
+      image.png would designate ~/Documents/twine/game/image.png .
+   Twine.debug:
+      Passages marked with this tag will not strip newline characters from the
+      passage text, this means that within the HTML file, it does not will not
+      condense it all to fit on one line. The -n newline functionality uses
+      this internally to select passages to not strip of newlines.
 
 The parameters for braid are as follows:
    -a --author:

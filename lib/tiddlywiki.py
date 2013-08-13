@@ -382,6 +382,13 @@ class Tiddler:
 def encode_text (text, tags):
 	"""Encodes a string for use in HTML output."""
 	output = text
+        if 'Twine.media' in tags:
+           for imageType in ['png', 'gif', 'jpg', 'jpeg']:
+              mimeType = 'image/' + imageType if not imageType == 'jpg' else 'image/jpeg'
+              for image in re.findall(r'[\w\/\s-]+\.' + imageType, text, re.IGNORECASE):
+                 if os.path.isfile(image):
+                    output = re.sub(r''+image, r'data:' + mimeType + ';base64,' +
+                       open(image, 'rb').read().encode('base64').replace('\n', ''), output)
 	output = output.replace('\\', '\s')
         if (not 'Twine.debug' in tags): output = re.sub(r'\r?\n', r'\\n', output)
         elif 'script' in tags: output = "\n" + output + "\n"
