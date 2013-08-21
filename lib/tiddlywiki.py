@@ -350,11 +350,11 @@ class Tiddler:
 
 		# <<back ''>>
 		
-		backs = re.findall(r'\<\<back\s+[\'"](.+?)[\'"]\s*\>\>', self.text, re.IGNORECASE)
+		backs = re.findall(r'\<\<back\s+.*?to\s+[\'"](.+?)[\'"]\s*\>\>', self.text, re.IGNORECASE + re.DOTALL)
 
 		# <<return ''>>
 		
-		returns = re.findall(r'\<\<return\s+[\'"](.+?)[\'"]\s*\>\>', self.text, re.IGNORECASE)
+		returns = re.findall(r'\<\<return\s+.*?to\s+[\'"](.+?)[\'"]\s*\>\>', self.text, re.IGNORECASE + re.DOTALL)
 
 		# <<binds ''>>
 		
