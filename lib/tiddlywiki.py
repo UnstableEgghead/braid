@@ -393,7 +393,7 @@ def encode_text (text, tags):
                     outputfile = open('image-goes-here.txt', 'ab')
                     outputfile.write('Wanted image file: ' + image + '\n')
                     outputfile.close()
-           for audioType in ['mp3', 'ogg']
+           for audioType in ['mp3', 'ogg']:
               mimeType = 'audio/' + audioType
               for audio in re.findall(r'[\w\/\s\\-]+\.' + audioType, text, re.IGNORECASE):
                  if os.path.isfile(audio):
@@ -403,7 +403,7 @@ def encode_text (text, tags):
                     outputfile = open('audio-goes-here.txt', 'ab')
                     outputfile.write('Wanted audio file: ' + audio + '\n')
                     outputfile.close()
-           for fontType in ['woff']
+           for fontType in ['woff']:
               mimeType = 'application/font-' + fontType
               for font in re.findall(r'[\w\/\s\\-]+\.' + fontType, text, re.IGNORECASE):
                  if os.path.isfile(font):
