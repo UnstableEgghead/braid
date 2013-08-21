@@ -382,16 +382,40 @@ class Tiddler:
 def encode_text (text, tags):
 	"""Encodes a string for use in HTML output."""
 	output = text
-        if 'Twine.media' in tags:
+        if 'media' in tags:
            for imageType in ['png', 'gif', 'jpg', 'jpeg']:
               mimeType = 'image/' + imageType if not imageType == 'jpg' else 'image/jpeg'
-              for image in re.findall(r'[\w\/\s-]+\.' + imageType, text, re.IGNORECASE):
+              for image in re.findall(r'[\w\/\s\\-]+\.' + imageType, text, re.IGNORECASE):
                  if os.path.isfile(image):
                     output = re.sub(r''+image, r'data:' + mimeType + ';base64,' +
                        open(image, 'rb').read().encode('base64').replace('\n', ''), output)
+                 else:
+                    outputfile = open('image-goes-here.txt', 'ab')
+                    outputfile.write('Wanted image file: ' + image + '\n')
+                    outputfile.close()
+           for audioType in ['mp3', 'ogg']
+              mimeType = 'audio/' + audioType
+              for audio in re.findall(r'[\w\/\s\\-]+\.' + audioType, text, re.IGNORECASE):
+                 if os.path.isfile(audio):
+                    output = re.sub(r''+audio, r'data:' + mimeType + ';base64,' +
+                       open(audio, 'rb').read().encode('base64').replace('\n', ''), output)
+                 else:
+                    outputfile = open('audio-goes-here.txt', 'ab')
+                    outputfile.write('Wanted audio file: ' + audio + '\n')
+                    outputfile.close()
+           for fontType in ['woff']
+              mimeType = 'application/font-' + fontType
+              for font in re.findall(r'[\w\/\s\\-]+\.' + fontType, text, re.IGNORECASE):
+                 if os.path.isfile(font):
+                    output = re.sub(r''+font, r'data:' + mimeType + ';base64,' +
+                       open(font, 'rb').read().encode('base64').replace('\n', ''), output)
+                 else:
+                    outputfile = open('font-goes-here.txt', 'ab')
+                    outputfile.write('Wanted font file: ' + font + '\n')
+                    outputfile.close()
 	output = output.replace('\\', '\s')
-        if (not 'Twine.debug' in tags): output = re.sub(r'\r?\n', r'\\n', output)
-        elif 'script' in tags: output = "\n" + output + "\n"
+        if (not 'debug' in tags): output = re.sub(r'\r?\n', r'\\n', output)
+        elif 'script' in tags: output = '\n' + output + '\n'
 	output = output.replace('<', '&lt;')
 	output = output.replace('>', '&gt;')
 	output = output.replace('"', '&quot;')

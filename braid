@@ -140,11 +140,11 @@ def main (argv):
    if newlines != '':
       if newlines == 'all':
          for passage in tw.tiddlers.keys():
-            tw.tiddlers[passage].tags.append('Twine.debug')
+            tw.tiddlers[passage].tags.append('debug')
       else:
          for passage in tw.tiddlers.keys():
             if newlines in tw.tiddlers[passage].tags:
-               tw.tiddlers[passage].tags.append('Twine.debug')
+               tw.tiddlers[passage].tags.append('debug')
 
    # Either Output to a file if requested, or to standard output
    if output != '':
